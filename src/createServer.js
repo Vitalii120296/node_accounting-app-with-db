@@ -6,6 +6,8 @@ const usersRouter = require('./api/users.router.js');
 const expensesRouter = require('./api/expenses.router.js');
 const categoriesRouter = require('./api/categories.router.js');
 
+require('express-async-errors');
+
 const createServer = () => {
   const app = express();
 
