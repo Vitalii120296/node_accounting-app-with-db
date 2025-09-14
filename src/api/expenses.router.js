@@ -8,7 +8,7 @@ expensesRouter.get('/', async (req, res) => {
   let expenses = await expensesService.getAll();
   const { userId, categories, from, to } = req.query;
 
-  if (Number.isNaN(userId)) {
+  if (userId && Number.isNaN(+userId)) {
     return res.status(400).json({ message: 'Invalid userId' });
   }
 
@@ -17,13 +17,16 @@ expensesRouter.get('/', async (req, res) => {
   }
 
   if (categories) {
-    const cat = categories
-      .toString()
-      .split(',')
-      .map((item) => item.trim());
+    const cat =
+      categories
+        .toString()
+        .split(',')
+        .map((item) => item.trim()) || '';
 
-    for (const value of cat) {
-      expenses = expenses.filter((exp) => exp.category.includes(value));
+    if (cat) {
+      for (const value of cat) {
+        expenses = expenses.filter((exp) => exp.category.includes(value));
+      }
     }
   }
 

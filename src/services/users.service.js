@@ -36,7 +36,7 @@ const update = async (id, body) => {
     },
   );
 
-  const user = models.User.findByPk(id);
+  const user = await models.User.findByPk(id);
 
   return user;
 };
