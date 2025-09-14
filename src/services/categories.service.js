@@ -13,26 +13,30 @@ const get = async (id) => {
 };
 
 const create = async (category) => {
-  const created = await models.create({ category });
+  const created = await models.Categories.create({ category });
 
   return created;
 };
 
 const update = async (id, category) => {
-  const updated = await models.Categories.update(
+  await models.Categories.update(
     { category },
     {
       where: { id },
     },
   );
 
+  const updated = models.Categories.findByPk(id);
+
   return updated;
 };
 
 const remove = async (id) => {
-  await models.Categories.destroy({
+  const deleted = await models.Categories.destroy({
     where: { id },
   });
+
+  return deleted;
 };
 
 module.exports = {
